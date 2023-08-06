@@ -8,13 +8,11 @@ int main() {
     int c[N] = {0};
     int i;
 
-    #pragma omp parallel for shared(a, b, c) private(i)
+    #pragma omp parallel for shared (a,b,c) private(i)
     for (i = 0; i < N; i++) {
         if (i > 0) {
-            #pragma omp atomic
             c[i] = c[i - 1] + (a[i] * b[i]);
         } else {
-            #pragma omp atomic
             c[i] = (a[i] * b[i]);
         }
     }
