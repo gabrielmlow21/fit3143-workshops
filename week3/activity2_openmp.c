@@ -11,9 +11,8 @@ int main() {
     #pragma omp parallel for shared(a, b, c) private(i)
     for (i = 0; i < N; i++) {
         if (i > 0) {
-            #pragma omp critical
-            // #pragma omp critical is used to ensure that only one thread at a time updates the c array. 
-            // This avoids the race condition and ensures that the final result is correct regardless of the number of threads used in the parallel loop.
+            // #pragma omp critical
+            // this is incorrect, this algorithm cannot be parallelised
             c[i] = c[i - 1] + (a[i] * b[i]);
         } else {
             c[i] = (a[i] * b[i]);
