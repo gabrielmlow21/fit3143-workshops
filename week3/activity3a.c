@@ -12,11 +12,10 @@ int main() {
     int c[M][N] = {0};
     int i, j;
 
-    #pragma omp parallel for shared (a,b,c) private(i,j)
-    // private is to ensure each thread has a private variable i and j
+    #pragma omp parallel for collapse(2) shared (a,b,c) private(j)
+    // private is to ensure each thread has a private variable j, i is already private since it is outer loop
     for (i = 0; i < M; i++) {
         for (j = 0; j < N; j++) {
-            #pragma omp critical
             c[i][j] = a[i][j] * b[i][j];
         }
     }
